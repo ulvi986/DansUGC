@@ -18,12 +18,26 @@ from core.logging_config import get_logger
 logger = get_logger("database")
 settings = get_settings()
 
+def _normalise_db_url(url: str) -> str:
+    """Accept the URL shapes managed providers hand out.
+
+    Railway/Heroku expose `postgres://...`; SQLAlchemy 2.0 only accepts
+    `postgresql://` (and uses psycopg2 by default). Normalise so the same env var
+    works regardless of provider formatting.
+    """
+    if url.startswith("postgres://"):
+        url = "postgresql://" + url[len("postgres://"):]
+    return url
+
+
+DATABASE_URL = _normalise_db_url(settings.database_url)
+
 _engine_kwargs: dict = {"pool_pre_ping": True, "future": True}
-if settings.database_url.startswith("sqlite"):
+if DATABASE_URL.startswith("sqlite"):
     # Needed because FastAPI serves requests from a threadpool.
     _engine_kwargs["connect_args"] = {"check_same_thread": False}
 
-engine = create_engine(settings.database_url, **_engine_kwargs)
+engine = create_engine(DATABASE_URL, **_engine_kwargs)
 
 SessionLocal = sessionmaker(
     bind=engine,
@@ -66,7 +80,17 @@ def init_db() -> None:
 
     Base.metadata.create_all(bind=engine)
     _ensure_columns()
-    logger.info("Database initialised at %s", settings.database_url)
+    logger.info("Database initialised (%s)", _safe_db_label(DATABASE_URL))
+
+
+def _safe_db_label(url: str) -> str:
+    """Backend + host only — never log credentials."""
+    try:
+        backend = url.split("://", 1)[0]
+        host = url.split("@", 1)[1].split("/", 1)[0] if "@" in url else "local"
+        return f"{backend} @ {host}"
+    except Exception:
+        return url.split("://", 1)[0] if "://" in url else "unknown"
 
 
 def _ensure_columns() -> None:

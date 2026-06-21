@@ -1,0 +1,16 @@
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+.git/
+.env
+*.db
+*.sqlite
+*.sqlite3
+*.mp4
+*.mov
+*.avi
+*.webm
+backend/outputs/
+.pytest_cache/
