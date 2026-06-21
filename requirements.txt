@@ -1,0 +1,21 @@
+# ---- Ad Intelligence Platform :: requirements ----
+# Web / API
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+
+# Data / ORM
+sqlalchemy>=2.0
+pydantic>=2.6
+pydantic-settings>=2.1
+pandas>=2.0
+
+# AI
+openai>=1.30               # primary LLM provider:  from openai import OpenAI
+google-genai>=1.0          # optional fallback provider:  from google import genai
+json-repair>=0.25          # optional; an internal fallback repairer is bundled too
+
+# Misc / existing scrapers
+python-dotenv>=1.0
+requests>=2.31
+apify-client>=1.7

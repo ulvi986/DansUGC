@@ -1,0 +1,39 @@
+# ---- secrets (NEVER commit) ----
+.env
+.env.local
+*.key
+*.pem
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ---- virtualenv ----
+venv/
+.venv/
+env/
+
+# ---- databases (SQLite, ephemeral) ----
+*.db
+*.sqlite
+*.sqlite3
+
+# ---- app outputs / temp ----
+backend/outputs/
+tmp/
+temp/
+
+# ---- large scraped media (do not version) ----
+*.mp4
+*.mov
+*.avi
+*.webm
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

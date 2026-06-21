@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ad Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <!-- top bar -->
+  <header class="nav">
+    <div class="nav-left">
+      <span class="mark"></span>
+      <span class="wordmark">Ad Intelligence</span>
+    </div>
+    <div class="nav-right">
+      <span class="pill" id="modePill">…</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO / SEARCH -->
+    <section class="hero" id="hero">
+      <h1 class="display">Find what makes ads win.</h1>
+      <p class="lede">
+        Type any app or brand. We pull its real Meta &amp; TikTok ads,
+        then a panel of AI agents extracts the winning patterns and writes
+        an evidence-based creative strategy.
+      </p>
+
+      <form class="search" id="searchForm" autocomplete="off">
+        <input
+          type="text"
+          id="appNameInput"
+          class="search-input"
+          placeholder="Enter an app name —  e.g. Calm, Rosebud, Duolingo"
+          spellcheck="false"
+        />
+        <button type="submit" class="search-btn" id="analyzeBtn">
+          <span class="label">Analyze</span>
+        </button>
+      </form>
+      <div class="search-note" id="searchNote"></div>
+
+      <div class="recent" id="recent"></div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="progress hidden" id="progress">
+      <div class="progress-card">
+        <div class="spinner"></div>
+        <div>
+          <div class="progress-title" id="progressTitle">Working…</div>
+          <div class="progress-sub" id="progressSub">This usually takes a few seconds.</div>
+        </div>
+      </div>
+      <ol class="steps" id="steps">
+        <li data-step="fetch">Fetching live ads</li>
+        <li data-step="analyze">Running the agent panel</li>
+        <li data-step="strategy">Composing the strategy</li>
+      </ol>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results hidden" id="results">
+      <div class="result-top">
+        <div class="result-id">
+          <button class="back" id="backBtn">← New search</button>
+          <h2 id="rTitle">—</h2>
+          <p class="meta" id="rSub">—</p>
+        </div>
+        <div class="conf">
+          <div class="conf-ring" id="confRing"><span id="confVal">0%</span></div>
+          <span class="conf-label">Confidence</span>
+        </div>
+      </div>
+
+      <nav class="tabs" id="tabs">
+        <button class="tab is-active" data-tab="executive">Executive</button>
+        <button class="tab" data-tab="winners">Winners</button>
+        <button class="tab" data-tab="clusters">Clusters</button>
+        <button class="tab" data-tab="opportunities">Opportunities</button>
+        <button class="tab" data-tab="strategies">Strategies</button>
+        <button class="tab" data-tab="map">Market Map</button>
+        <button class="tab" data-tab="evidence">Evidence</button>
+        <button class="tab" data-tab="agents">Agents</button>
+      </nav>
+
+      <div class="panel" id="tab-executive"></div>
+      <div class="panel hidden" id="tab-winners"></div>
+      <div class="panel hidden" id="tab-clusters"></div>
+      <div class="panel hidden" id="tab-opportunities"></div>
+      <div class="panel hidden" id="tab-strategies"></div>
+      <div class="panel hidden" id="tab-map"></div>
+      <div class="panel hidden" id="tab-evidence"></div>
+      <div class="panel hidden" id="tab-agents"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
